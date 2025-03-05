@@ -25,6 +25,14 @@ gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+gem 'devise'
+gem 'jwt'
+gem 'sidekiq'
+gem 'dotenv-rails'
+gem 'pundit' # For Role-Based Permissions
+gem 'carrierwave' # For File Uploads (Business Advertisements)
+gem 'actioncable' # For Real-Time Chat
+
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
