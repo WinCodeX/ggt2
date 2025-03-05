@@ -6,6 +6,11 @@ class User < ApplicationRecord
          
   enum role: { client: 0, agent: 1, warehouse: 2, rider: 3, admin: 4 }
        validates :email, presence: true, uniqueness: true
-    
+   before_create :set_default_role
+private
+
+       def set_default_role
+         self.role ||= :client
+       end
         
 end
