@@ -75,3 +75,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 4.2"
+
+gem "tailwind_devise", "~> 0.0.3"
