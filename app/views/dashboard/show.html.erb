@@ -1,7 +1,7 @@
 <% if current_user.business.present? %>
   <h3>Your Business Dashboard</h3>
   <p>Manage your deliveries, advertising, and payments.</p>
-  <%= link_to "Edit Business Profile", edit_business_path, class: "btn btn-primary" %>
+  <%= link_to "Edit Business Profile", edit_business_path(current_user.business), class: "btn btn-primary" %>
 <% else %>
   <p>You’re using a personal account. Want business features?</p>
   <%= link_to "Create Business Profile", new_business_path, class: "btn btn-warning" %>
