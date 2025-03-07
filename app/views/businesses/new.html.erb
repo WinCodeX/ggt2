@@ -1,0 +1,45 @@
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-10">
+  
+  #<!-- Business Logo Upload -->
+  <div class="flex flex-col items-center">
+    <label for="logo-upload" class="cursor-pointer">
+      <div class="w-24 h-24 rounded-full border border-gray-300 flex items-center justify-center overflow-hidden bg-gray-100">
+        <img id="logo-preview" src="/default-logo.png" class="w-full h-full object-cover hidden" />
+        <span class="text-gray-400" id="upload-text">Upload</span>
+      </div>
+    </label>
+    <input type="file" id="logo-upload" class="hidden" accept="image/*" data-action="change->business#previewLogo">
+  </div>
+
+  #<!-- Business Form -->
+  <form class="mt-4" action="<%= businesses_path %>" method="post">
+    <div class="mb-4">
+      <label class="text-gray-600 font-semibold">Business Name</label>
+      <input type="text" name="business[name]" class="w-full p-2 border rounded-md focus:outline-none focus:border-primary">
+    </div>
+
+    <%= form_with model: @business, url: businesses_path, local: true do |f| %>
+      <div class="mb-4">
+        <%= f.label :description, "Business Description" %>
+        <%= f.text_area :description, rows: 3, class: "w-full p-2 border rounded-md focus:outline-none focus:border-primary" %>
+      </div>
+    
+      <%= f.submit "Create Business", class: "btn btn-primary" %>
+    <% end %>
+    
+    <%= form_with model: @business, url: businesses_path, local: true, html: { multipart: true } do |f| %>
+  <div class="mb-4">
+    <%= f.label :logo, "Upload New Logo" %>
+    <%= f.file_field :logo %>
+  </div>
+
+  <%= f.submit "Save Changes", class: "btn btn-primary" %>
+<% end %>
+
+  
+     <div class="flex justify-between">
+      <button type="submit" class="bg-primary text-white px-4 py-2 rounded-md">Save</button>
+      <button type="button" class="text-gray-500">Cancel</button>
+    </div>
+  </form>
+</div>

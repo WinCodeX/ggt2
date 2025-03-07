@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'accounts/edit'
-  get 'accounts/update'
+  resources :businesses, only: [:new, :create, :edit, :update, :show, :destroy]
   devise_for :users
   resource :account, only: [:edit, :update]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
