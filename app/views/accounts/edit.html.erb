@@ -1,0 +1,27 @@
+<h2>Account Settings</h2>
+
+<%= form_for @user, url: account_path, method: :patch do |f| %>
+  <div class="field">
+    <%= f.label :username %>
+    <%= f.text_field :username, required: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email, required: true %>
+  </div>
+ 
+    <div class="field">
+    <%= f.label :password, "New Password" %>
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirm Password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save Changes" %>
+  </div>
+<% end %>
