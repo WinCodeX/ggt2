@@ -1,27 +1,28 @@
-<h2>Account Settings</h2>
-
-<%= form_for @user, url: account_path, method: :patch do |f| %>
-  <div class="field">
-    <%= f.label :username %>
-    <%= f.text_field :username, required: true %>
+<div class="w-full min-h-[100vh] pt-24">
+  <div class="max-w-xl w-full mx-auto shadow-lg bg-gray-200 rounded-lg py-8">
+    <h2 class="text-xl mb-4 text-center">Account settings</h2>
+    <div class="w-3/4 mx-auto">
+      <%= form_for @user, url: account_path, method: :patch do |f| %>
+        <div class="field mb-4">
+          <%= f.label :username %>
+          <%= f.text_field :username, required: true %>
+        </div>
+        <div class="field mb-4">
+          <%= f.label :email %>
+          <%= f.email_field :email, required: true %>
+        </div>
+        <div class="field mb-4">
+          <%= f.label :password, "New Password" %>
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+        <div class="field mb-4">
+          <%= f.label :password_confirmation, "Confirm Password" %>
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+        <div class="actions w-full">
+          <%= f.submit "Save Changes", class: "bg-blue-500 w-full p-2 text-blue-100 rounded-lg cursor-pointer hover:bg-blue-700 hover:text-blue-300" %>
+        </div>
+      <% end %>  
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email, required: true %>
-  </div>
- 
-    <div class="field">
-    <%= f.label :password, "New Password" %>
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm Password" %>
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Save Changes" %>
-  </div>
-<% end %>
+</div>
