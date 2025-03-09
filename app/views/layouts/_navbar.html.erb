@@ -26,9 +26,27 @@
           <%= link_to "Sign Up", new_user_registration_path, class: "hover:text-gray-300 transition" %>
         </div>
       <% end %>
+            
+            <div class="flex items-center space-x-4">
+          <!-- Display Business Logo (if exists) -->
+          <% if current_user.business&.logo&.attached? %>
+            <%= image_tag current_user.business.logo.variant(resize: "40x40"), 
+                class: "w-10 h-10 rounded-full border border-gray-300 shadow-sm" %>
+          <% end %>
 
-      <%= link_to "Track Package", "#", class: "hover:text-gray-300 transition" %>
-      <%= link_to "Contact", "#", class: "hover:text-gray-300 transition" %>
+          <!-- Display Profile Picture (or default avatar) -->
+          <% if current_user.profile_picture.attached? %>
+            <%= image_tag current_user.profile_picture.variant(resize: "40x40"), 
+                class: "w-10 h-10 rounded-full border border-gray-300 shadow-sm" %>
+          <% else %>
+            <%= image_tag "default-avatar.png", 
+                class: "w-10 h-10 rounded-full border border-gray-300 shadow-sm" %>
+          <% end %>
+
+          <%= link_to "Profile", edit_account_path(current_user), class: "text-sm" %>
+        </div>
+
+      
     </div>
   </div>
 </div>

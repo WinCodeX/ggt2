@@ -2,7 +2,9 @@ class User < ApplicationRecord
        before_validation :ensure_unique_username, on: :create
      
        has_one :business, dependent: :destroy
-     
+        has_one_attached :profile_picture
+      
+      
        devise :database_authenticatable, :registerable,
               :recoverable, :rememberable, :validatable
      

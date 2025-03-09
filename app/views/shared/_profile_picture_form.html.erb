@@ -1,0 +1,16 @@
+<div class="mb-4">
+  <label class="text-gray-600 font-semibold">Profile Picture</label>
+  <div class="flex items-center space-x-4">
+    <!-- Show Current Profile Picture or Default Placeholder -->
+    <% if @user.profile_picture.attached? %>
+      <%= image_tag @user.profile_picture.variant(resize: "80x80"), 
+          class: "w-20 h-20 rounded-full border border-gray-300 shadow-sm" %>
+    <% else %>
+      <%= image_tag "default-avatar.png", 
+          class: "w-20 h-20 rounded-full border border-gray-300 shadow-sm" %>
+    <% end %>
+
+    <!-- File Upload -->
+    <%= form.file_field :profile_picture, class: "p-2 border rounded-md image-upload" %>
+  </div>
+</div>

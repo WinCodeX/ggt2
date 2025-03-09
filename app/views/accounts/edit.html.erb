@@ -3,6 +3,7 @@
     <h2 class="text-xl mb-4 text-center">Account settings</h2>
     <div class="w-3/4 mx-auto">
       <%= form_for @user, url: account_path, method: :patch do |f| %>
+        <%= render "shared/profile_picture_form", form: f %>
         <div class="field mb-4">
           <%= f.label :username %>
           <%= f.text_field :username, required: true %>
