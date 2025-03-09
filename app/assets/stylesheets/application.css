@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+ @tailwind base;
+ @tailwind components;
+ @tailwind utilities;
+ 
+ input, textarea, select {
+   @apply border border-gray-300 p-2 rounded-md w-full focus:outline-none focus:border-primary;
+ }
+ button {
+   @apply px-4 py-2 rounded-md;
+ }
+ 
