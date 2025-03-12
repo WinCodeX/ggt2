@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   resources :businesses, only: [:new, :create, :edit, :update, :show, :destroy]
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resource :account, only: [:edit, :update]
+  resources :packages, only: [:new, :create, :show]
+  resources :agents, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :accounts do
-    member do
+        member do
       patch :update_profile_picture
     end
   end

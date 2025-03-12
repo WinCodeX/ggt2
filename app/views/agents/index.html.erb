@@ -1,0 +1,24 @@
+<h1>Agents</h1>
+<%= link_to "Add New Agent", new_agent_path, class: "btn btn-primary" %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @agents.each do |agent| %>
+      <tr>
+        <td><%= agent.name %></td>
+        <td><%= agent.location %></td>
+        <td>
+          <%= link_to "Edit", edit_agent_path(agent) %> |
+          <%= link_to "Delete", agent_path(agent), method: :delete, data: { confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

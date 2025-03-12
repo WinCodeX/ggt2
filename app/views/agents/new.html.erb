@@ -1,0 +1,14 @@
+<h1>Add New Agent</h1>
+<%= form_with model: @agent, local: true do |f| %>
+  <div>
+    <%= f.label :name, "Agent Name" %>
+    <%= f.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :location, "Agent Location" %>
+    <%= f.text_field :location, required: true %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-success" %>
+<% end %>
