@@ -1,96 +1,64 @@
-<!-- Multi-step Form -->
-<div id="package-form-step-1">
-  <h2>Step 1: Recipient Information</h2>
-  <label>Recipient Name:</label>
-  <input type="text" id="recipient_name" required>
-  
-  <label>Recipient Phone:</label>
-  <input type="text" id="recipient_phone" required>
+<div class="form-container fade-in">
+  <div id="package-form-step-1">
+    <h2>Step 1: Recipient Information</h2>
+    <input type="text" id="recipient_name" placeholder="Recipient Name" required>
+    <input type="text" id="recipient_phone" placeholder="Recipient Phone" required>
+    <button onclick="nextStep(2)">Next</button>
+  </div>
 
-  <button onclick="nextStep(2)">Next</button>
+  <div id="package-form-step-2" class="hidden">
+    <h2>Step 2: Package Details</h2>
+    <input type="text" id="package_description" placeholder="What are you sending?" required>
+    <input type="number" id="package_value" placeholder="Value of the Package" required>
+    <button onclick="nextStep(3)">Next</button>
+  </div>
+
+  <div id="package-form-step-3" class="hidden">
+    <h2>Step 3: Sender Agent</h2>
+    <select id="sender_agent_id">
+      <% Agent.all.each do |agent| %>
+        <option value="<%= agent.id %>"><%= agent.name %></option>
+      <% end %>
+    </select>
+    <button onclick="nextStep(4)">Next</button>
+  </div>
+
+  <div id="package-form-step-4" class="hidden">
+    <h2>Step 4: Delivery Type</h2>
+    <select id="delivery_type" onchange="updateDeliveryDetails()">
+      <option value="">Choose an Option</option>
+      <option value="door_delivery">Door Delivery</option>
+      <option value="agent_pickup">Agent Pickup</option>
+      <option value="parcel_delivery">Parcel Delivery</option>
+    </select>
+    <button onclick="nextStep(5)">Next</button>
+  </div>
+
+  <!-- Dynamic Inputs Based on Delivery Type -->
+  <div id="door_delivery_fields" class="hidden">
+    <input type="text" id="exact_location" placeholder="Exact Location">
+  </div>
+
+  <div id="agent_pickup_fields" class="hidden">
+    <select id="receiver_agent_id">
+      <% Agent.all.each do |agent| %>
+        <option value="<%= agent.id %>"><%= agent.name %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div id="parcel_delivery_fields" class="hidden">
+    <input type="text" id="courier_service" placeholder="Courier Service">
+    <input type="text" id="destination" placeholder="Destination">
+  </div>
+
+  <!-- Display Cost Before Submission -->
+  <div class="form-group">
+    <p>Estimated Delivery Cost: <span id="delivery-cost">Ksh 0.00</span></p>
+  </div>
+
+  <div id="package-form-step-5" class="hidden">
+    <h2>Final Step: Submit & Pay</h2>
+    <button onclick="submitPackage()">Submit & Pay</button>
+  </div>
 </div>
-
-<div id="package-form-step-2" class="hidden">
-  <h2>Step 2: Package Details</h2>
-  <label>What are you sending?</label>
-  <input type="text" id="package_description" required>
-
-  <label>Value of the Package:</label>
-  <input type="number" id="package_value" required>
-
-  <button onclick="nextStep(3)">Next</button>
-</div>
-
-<div id="package-form-step-3" class="hidden">
-  <h2>Step 3: Sender Agent</h2>
-  <label>Choose a sender agent:</label>
-  <select id="sender_agent_id">
-    <% Agent.all.each do |agent| %>
-      <option value="<%= agent.id %>"><%= agent.name %></option>
-    <% end %>
-  </select>
-
-  <button onclick="nextStep(4)">Next</button>
-</div>
-
-<div id="package-form-step-4" class="hidden">
-  <h2>Step 4: Delivery Type</h2>
-  <select id="delivery_type" onchange="updateDeliveryDetails()">
-    <option value="">Choose an Option</option>
-    <option value="door_delivery">Door Delivery</option>
-    <option value="agent_pickup">Agent Pickup</option>
-    <option value="parcel_delivery">Parcel Delivery</option>
-  </select>
-
-  <button onclick="nextStep(5)">Next</button>
-</div>
-
-<!-- Dynamic Inputs Based on Delivery Type -->
-<div id="door_delivery_fields" class="hidden">
-  <label>Exact Location:</label>
-  <input type="text" id="exact_location">
-</div>
-
-<div id="agent_pickup_fields" class="hidden">
-  <label>Receiver Agent:</label>
-  <select id="receiver_agent_id">
-    <% Agent.all.each do |agent| %>
-      <option value="<%= agent.id %>"><%= agent.name %></option>
-    <% end %>
-  </select>
-</div>
-
-<div id="parcel_delivery_fields" class="hidden">
-  <label>Courier Service:</label>
-  <input type="text" id="courier_service">
-
-  <label>Destination:</label>
-  <input type="text" id="destination">
-</div>
-
-<div id="package-form-step-5" class="hidden">
-  <h2>Final Step: Submit & Pay</h2>
-  <button onclick="submitPackage()">Submit & Pay</button>
-</div>
-
-<script>
-function nextStep(step) {
-  document.querySelectorAll("div[id^='package-form-step']").forEach(el => el.classList.add("hidden"));
-  document.getElementById(`package-form-step-${step}`).classList.remove("hidden");
-}
-
-function updateDeliveryDetails() {
-  document.getElementById("door_delivery_fields").classList.add("hidden");
-  document.getElementById("agent_pickup_fields").classList.add("hidden");
-  document.getElementById("parcel_delivery_fields").classList.add("hidden");
-
-  let selectedType = document.getElementById("delivery_type").value;
-  if (selectedType === "door_delivery") {
-    document.getElementById("door_delivery_fields").classList.remove("hidden");
-  } else if (selectedType === "agent_pickup") {
-    document.getElementById("agent_pickup_fields").classList.remove("hidden");
-  } else if (selectedType === "parcel_delivery") {
-    document.getElementById("parcel_delivery_fields").classList.remove("hidden");
-  }
-}
-</script>

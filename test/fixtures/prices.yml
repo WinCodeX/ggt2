@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender_agent: one
+  receiver_agent: one
+  cost: 9.99
+
+two:
+  sender_agent: two
+  receiver_agent: two
+  cost: 9.99

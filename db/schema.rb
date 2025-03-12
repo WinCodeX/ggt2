@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_12_195545) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_12_202942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_12_195545) do
     t.index ["user_id"], name: "index_packages_on_user_id"
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.bigint "sender_agent_id", null: false
+    t.bigint "receiver_agent_id", null: false
+    t.decimal "cost", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_agent_id"], name: "index_prices_on_receiver_agent_id"
+    t.index ["sender_agent_id"], name: "index_prices_on_sender_agent_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -97,4 +107,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_12_195545) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "businesses", "users"
   add_foreign_key "packages", "users"
+  add_foreign_key "prices", "agents", column: "receiver_agent_id"
+  add_foreign_key "prices", "agents", column: "sender_agent_id"
 end

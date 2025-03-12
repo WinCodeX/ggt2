@@ -9,7 +9,11 @@ Rails.application.routes.draw do
       patch :update_profile_picture
     end
   end
-  
+  resources :prices do
+    collection do
+      get :calculate
+    end
+  end  
   authenticate :user do
     patch '/users/update_profile_picture', to: 'users/registrations#update_profile_picture', as: :update_profile_picture
   end
