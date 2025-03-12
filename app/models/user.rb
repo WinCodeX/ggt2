@@ -20,6 +20,11 @@ class User < ApplicationRecord
        def set_default_role
          self.role ||= :client
        end
+       
+       def update_profile_picture(image)
+        profile_picture.attach(image)
+        save
+      end
      
        def ensure_unique_username
          base_username = self.username.strip

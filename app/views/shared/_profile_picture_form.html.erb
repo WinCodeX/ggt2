@@ -1,16 +1,36 @@
-<div class="mb-4">
-  <label class="text-gray-600 font-semibold">Profile Picture</label>
-  <div class="flex items-center space-x-4">
-    <!-- Show Current Profile Picture or Default Placeholder -->
-    <% if @user.profile_picture.attached? %>
-      <%= image_tag @user.profile_picture.variant(resize: "80x80"), 
-          class: "w-20 h-20 rounded-full border border-gray-300 shadow-sm" %>
-    <% else %>
-      <%= image_tag "default-avatar.png", 
-          class: "w-20 h-20 rounded-full border border-gray-300 shadow-sm" %>
-    <% end %>
+<div class="bg-white p-6 rounded-lg shadow-md w-full md:w-1/2 mx-auto">
+  <h2 class="text-lg font-semibold mb-4">Update Profile Picture</h2>
 
-    <!-- File Upload -->
-    <%= form.file_field :profile_picture, class: "p-2 border rounded-md image-upload" %>
-  </div>
+  <form id="profile-picture-form" action="<%= update_profile_picture_account_path(current_user) %>" method="post" enctype="multipart/form-data">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+    <!-- Image Preview -->
+    <div class="flex justify-center">
+      <label for="profile-picture-input" class="cursor-pointer">
+        <%= image_tag(current_user.profile_picture.attached? ? current_user.profile_picture.variant(resize: "128x128") : "/assets/default_avatar.png",
+                      class: "w-32 h-32 rounded-full border border-gray-300 shadow-sm",
+                      id: "profile-picture-preview") %>
+      </label>
+    </div>
+
+    <!-- Upload Input -->
+    <input type="file" id="profile-picture-input" name="user[profile_picture]" class="hidden">
+
+    <!-- Submit Button -->
+    <div class="mt-4 flex justify-center">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Upload</button>
+    </div>
+  </form>
 </div>
+
+<script>
+document.getElementById('profile-picture-input').addEventListener('change', function(event) {
+  if (this.files && this.files[0]) {
+    let reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('profile-picture-preview').src = e.target.result;
+    };
+    reader.readAsDataURL(this.files[0]);
+  }
+});
+</script>

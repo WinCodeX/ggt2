@@ -1,16 +1,7 @@
-<div class="mb-4">
-  <label class="text-gray-600 font-semibold">Business Logo</label>
-  <div class="flex items-center space-x-4">
-    <!-- Show Current Business Logo or Default Placeholder -->
-    <% if @business.logo.attached? %>
-      <%= image_tag @business.logo.variant(resize: "80x80"), 
-          class: "w-20 h-20 rounded-full border border-gray-300 shadow-sm" %>
-    <% else %>
-      <%= image_tag "default-business-logo.png", 
-          class: "w-20 h-20 rounded-full border border-gray-300 shadow-sm" %>
-    <% end %>
-
-    <!-- File Upload -->
-    <%= form.file_field :logo, class: "p-2 border rounded-md image-upload" %>
-  </div>
+<div class="flex items-center space-x-4">
+  <!-- Display Business Logo (if exists) -->
+  <% if current_user&.business&.logo&.attached? %>
+    <%= image_tag current_user.business.logo.variant(resize: "40x40"), 
+        class: "w-10 h-10 rounded-full border border-gray-300 shadow-sm" %>
+  <% end %>
 </div>
