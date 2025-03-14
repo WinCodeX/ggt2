@@ -3,7 +3,7 @@
     <h2>Step 1: Recipient Information</h2>
     <input type="text" id="recipient_name" placeholder="Recipient Name" required>
     <input type="text" id="recipient_phone" placeholder="Recipient Phone" required>
-    <button onclick="nextStep(2)">Next</button>
+    <button type="button" onclick="nextStep(2)">Next</button>
   </div>
 
   <div id="package-form-step-2" class="hidden">
@@ -15,7 +15,7 @@
 
   <div id="package-form-step-3" class="hidden">
     <h2>Step 3: Sender Agent</h2>
-    <select id="sender_agent_id">
+    <select id="sender_agent_id" onchange="updatePrice()">
       <% Agent.all.each do |agent| %>
         <option value="<%= agent.id %>"><%= agent.name %></option>
       <% end %>
@@ -40,7 +40,7 @@
   </div>
 
   <div id="agent_pickup_fields" class="hidden">
-    <select id="receiver_agent_id">
+    <select id="receiver_agent_id"  onchange="updatePrice()">
       <% Agent.all.each do |agent| %>
         <option value="<%= agent.id %>"><%= agent.name %></option>
       <% end %>
