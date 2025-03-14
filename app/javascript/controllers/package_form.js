@@ -1,7 +1,9 @@
-function nextStep(step) {
-    // Ensure all previous steps are filled
+window.nextStep = function(step) {
+    console.log(`Attempting to move to Step ${step}...`);  // Debugging Log
+
     let currentStep = step - 1;
-    let inputs = document.querySelectorAll(`#package-form-step-${currentStep} input[required]`);
+    let inputs = document.querySelectorAll(`#package-form-step-${currentStep} select, #package-form-step-${currentStep} input[required]`);
+
     for (let input of inputs) {
         if (!input.value.trim()) {
             alert("Please fill out all required fields before proceeding.");
@@ -17,8 +19,26 @@ function nextStep(step) {
     if (nextStepElement) {
         nextStepElement.classList.remove("hidden");
         nextStepElement.classList.add("fade-in");
+        console.log(`✅ Successfully moved to Step ${step}`);
+
+        // Show the correct fields for Step 5 based on Step 4 selection
+        let deliveryType = document.getElementById("delivery_type").value;
+        document.getElementById("door_delivery_fields").classList.add("hidden");
+        document.getElementById("agent_pickup_fields").classList.add("hidden");
+        document.getElementById("parcel_delivery_fields").classList.add("hidden");
+
+        if (deliveryType === "door_delivery") {
+            document.getElementById("door_delivery_fields").classList.remove("hidden");
+        } else if (deliveryType === "agent_pickup") {
+            document.getElementById("agent_pickup_fields").classList.remove("hidden");
+        } else if (deliveryType === "parcel_delivery") {
+            document.getElementById("parcel_delivery_fields").classList.remove("hidden");
+        }
+    } else {
+        console.error(`❌ Step ${step} not found!`);
     }
-}
+};
+
 
 // Attach function to global scope
 window.nextStep = nextStep;
@@ -112,3 +132,7 @@ window.nextStep = nextStep;
     }
     
     console.log("🚀 JavaScript Loaded Successfully!");
+
+
+
+   
